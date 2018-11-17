@@ -6,90 +6,114 @@ Affiliation   : 网络空间安全学院
 Doc class     : [10pt]article
 
 [TITLE]
+# Greedy Algorithm
+## Natural language AND Pseudo-code.
+&#8195;for every node whose degree is $d$, if it can become a part of some graph,it must connect with $d$ 
+other nodes with $d$ edges. So we can assume those nodes whose degree is $d_1$,$d_2$....,$d_n$ can 
+exist in the same graph.If we delete a node with $d$ degree from this graph, there must exist $d$ nodes 
+whose degree can reduce 1.So we can try delete all of nodes of the graph,if there exist a node that 
+can't fit the rule above, those nodes can't be exist in the same graph.Otherwise there exists an undirected 
+graph $G = (V, E)$ whose node degrees are precisely the numbers  $d_1$,$d_2$....,$d_n$.  
+
+
+****
+**function** $IsGraph(Array Of Degree)$  
+1:  **for**(every d in D):   
+2: &#8195; D->delete() //find **d** nodes  in D whose degree is not 0 and make its degree \-\-  
+3: &#8195; **while**( d > 0 and i < D->len())   
+4: &#8195;&#8195; i=0  
+5: &#8195;&#8195; **if** ( D\[i\] > 0) **then** :  
+6: &#8195;&#8195;&#8195; D\[i\]\-\-  
+7: &#8195;&#8195;&#8195; d\-\-  
+8: &#8195;&#8195; **end**  
+9: &#8195;&#8195; i++  
+10:&#8195; **end**  
+11:&#8195;**if**( d > 0 ) **then** : //if we can't find **d** nodes, it can't be a graph   
+12:&#8195;&#8195;**return**  false  
+13:&#8195;**end**  
+14:**end**  
+15:**return** true // we find for every d in D,so it can become a graph  
+****
+## Describe the greedy-choice property and optimal substructure.
+The greedy-choice property is if the remaining nodes can compose a graph when a node is deleted from the graph.  
+
+Optimal substructure:&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;
+$$
+  \begin{Bmatrix}
+  OPT(d-d[0])\\
+  0\\
+  \end{Bmatrix}
+$$
+
+
+## Prove the correctness of your algorithm.
+&#8195;for every node whose degree is $d$, if it can become a part of some graph,it must connect with $d$ 
+other nodes with $d$ edges. So we can assume those nodes whose degree is $d_1$,$d_2$....,$d_n$ can 
+exist in the same graph. If we delete a node with $d$ degree from this graph, there must exist $d$ nodes 
+whose degree can reduce 1. So we can try delete all of nodes of the graph,if there exist a node that 
+can't fit the rule above, those nodes can't be exist in the same graph.Otherwise there exists an undirected 
+graph $G = (V, E)$ whose node degrees are precisely the numbers  $d_1$,$d_2$....,$d_n$.  
+## Analyse the complexity of your algorithm.
+Time Complexity is $O(nd)$ where $d$ is the average value.
 
 # Greedy Algorithm
 ## Natural language AND Pseudo-code.
-Madoko is a fast markdown processor for writing professional articles
-with a focus on simplicity and plain text readability.
-
+&#8195;Compare the first char of string $s$ and $t$,if the two chars are different,delete the first char from
+$s$. Otherwise delete the first char from $t$. Repeat it until $s$ or $t$ don't contain any char. In the end,
+if the length of $t$ is 0,$t$ is a subsequence of $s$, otherwise,$t$ is not a subsequence of $s$.    
 ****
-**Pseudo Code**
-
-****
-**function** INSERT  
-1：  
-2：
-
+**function** $SubsequenceOf(s,t)$  
+1: **while**(s->length != 0 or t->length != 0)  
+2: &#8195; **if** ( s->first == t->first ) **then**:   
+3: &#8195;&#8195; s->delete( s->first )  
+4: &#8195;&#8195; t->delete( s->first )  
+5: &#8195; **else**  
+6: &#8195;&#8195; s->delete( s->first )  
+7: &#8195; **end**  
+8:  **end**  
+9: **if** ( t->length == 0 ) **then** :  
+10:&#8195; **return** true  
+11: **else** :  
+12:&#8195;**return** false  
 ****
 ## Describe the greedy-choice property and optimal substructure.
+The greedy-choice is if the first characters of $s$ and $t$ are same.
+
+Optimal substructure:&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;
+$$
+\begin{Bmatrix}
+  OPT(s-s[0],t) \\
+  OPT(s-s[0],t-t[0])\\
+\end{Bmatrix}
+$$
 ## Prove the correctness of your algorithm.
+&#8195;Compare the first char of string $s$ and $t$,if the two chars are different,delete the first char from
+$s$. Otherwise delete the first char from $t$. Repeat it until $s$ or $t$ don't contain any char. In the end,
+if the length of $t$ is 0,$t$ is a subsequence of $s$, otherwise,$t$ is not a subsequence of $s$.
 ## Analyse the complexity of your algorithm.
-
-
-
-* Read the [reference manual].
-* Explore the upper-right toolbox menu to discover how Markdown works. 
-* `Alt-Q` reformats the current paragraph.
-
-Enjoy!
+Time Complexity is $O(Length Of S)$
 
 # Greedy Algorithm
 ## Natural language AND Pseudo-code.
+&#8195;We need compute $\lfloor \frac{n}{m} \rfloor$ or $\lceil \frac{n}{m} \rceil$ as the length of
+the first part of the nope we cut. And we need update $n$ = $n$ -  $\lfloor \frac{n}{m} \rfloor$ or $\lceil \frac{n}{m} \rceil$
+and $m$ = $m$ - 1, the new rope is the rope without the first part we cut from the rope. So we can repeate 
+previous steps until the length of the rope is 0. And We get the maximum product.     
+
+****
+**function** $maximum\_product(m,n)$  
+1:  **while** ( n is not 0 **or** m == 0 )  
+2: &#8195; product = n/m \* product  
+3: &#8195; n = n - n/m  
+4: &#8195; m = m - 1  
+5:  **end **  
+****
 ## Describe the greedy-choice property and optimal substructure.
+The greedy-choice is cutting $\lfloor \frac{n}{m} \rfloor$ or $\lceil \frac{n}{m} \rceil$ everytime.
+
+Optimal substructure: $OPT(n - \lfloor \frac{n}{m} \rfloor,m-1) * \lfloor \frac{n}{m} \rfloor$
 ## Prove the correctness of your algorithm.
+The maximum product must be the product of the value closest to the average，so we compute  
+$\lfloor \frac{n}{m} \rfloor$ or $\lceil \frac{n}{m} \rceil$ everytime.
 ## Analyse the complexity of your algorithm.
-
-~ Abstract
-There is more in you of good than you know, child of the kindly West.
-Some courage and some wisdom, blended in measure. If more of us valued
-food and cheer and song above hoarded gold, it would be a merrier world.
-~
-
-# Introduction     { #sec-intro }
-
-Figure [#fig-butterfly] in Section [#sec-intro] shows a monarch butterfly.
-Note that you can drag&drop images into the editor pane to include them in
-the document, and similarly with bibtex files, latex style files, etc.
-
-~ Figure { #fig-butterfly; caption:"A Monarch butterfly"; page-align:here }
-![butterfly]
-~
-
-[butterfly]: images/butterfly.png "butterfly"  { width:4em }
-
-Our contributions are:
-
-* A figure of a _butterfly_;
-* Some **mathematics**;
-* And some source code;
-* And references to Tex books [@Knuth:TeX;@Lamport:LaTeX;@Goo93;@Fberg04] and others [@Grandstrand]. 
-  Textual citations, like @Knuth:TeX are also possible.
-
-# Content
-
-A definition of $e$ is shown in Equation [#euler] proved by Theorem [#th-euler]:
-
-~ Equation { #euler }
-e = \lim_{n\to\infty} \left( 1 + \frac{1}{n} \right)^n
-~
-
-~ Theorem {#th-euler; caption:"Euler's theorem" }
-More math here.
-~
-
-Let's program some Javascript:
-``` javascript
-function hello() {
-  return "hello world!"
-}
-```
-
-~ Note
-The syntax highlighting works in the PDF output too.
-~
-
-# Conclusion
-
-Really fun to write Markdown :-)
-
-[BIB]
+Time Complexity is $O(m)$
